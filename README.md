@@ -24,7 +24,6 @@ pgzrun main.py
 
 * Colete **todas as estrelas**.
 * Evite os **cometas** que caem do espaço.
-* Vença coletando tudo ou perca se colidir com um inimigo.
 * **Você vence** ao coletar todas as estrelas.
 * **Você perde** ao ser atingido por cometas 3 vezes.
 
