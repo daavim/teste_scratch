@@ -4,27 +4,22 @@ import random
 WIDTH = 800
 HEIGHT = 600
 
-# Estados do jogo
-estado_jogo = "menu"  # menu, jogando, vitoria, derrota
+estado_jogo = "menu"
 
-# Sprites
 jogador = Actor("guardiao", (WIDTH // 2, HEIGHT - 60))
 estrelas = []
 cometas = []
 
-# Variáveis
 pontuacao = 0
 vidas = 3
 TOTAL_ESTRELAS = 5
 
-# Função personalizada com parâmetro numérico
 def criar_cometa(velocidade):
     x = random.randint(50, WIDTH - 50)
     cometa = Actor("cometa", (x, -40))
     cometa.vel = velocidade
     cometas.append(cometa)
 
-# Função para criar clones de estrelas
 def criar_estrelas():
     estrelas.clear()
     for _ in range(TOTAL_ESTRELAS):
@@ -66,7 +61,6 @@ def update():
     if estado_jogo != "jogando":
         return
 
-    # Movimento livre da nave
     if keyboard.left:
         jogador.x -= 5
     if keyboard.right:
@@ -76,17 +70,14 @@ def update():
     if keyboard.down:
         jogador.y += 5
 
-    # Limitar movimento dentro da tela
     jogador.x = max(30, min(WIDTH - 30, jogador.x))
     jogador.y = max(30, min(HEIGHT - 30, jogador.y))
 
-    # Coleta de estrelas
     for estrela in estrelas[:]:
         if jogador.colliderect(estrela):
             estrelas.remove(estrela)
             pontuacao += 1
 
-    # Movimento dos cometas
     for cometa in cometas[:]:
         cometa.y += cometa.vel
         if cometa.y > HEIGHT:
@@ -95,11 +86,9 @@ def update():
             cometas.remove(cometa)
             vidas -= 1
 
-    # Verificação de vitória
     if pontuacao >= TOTAL_ESTRELAS:
         estado_jogo = "vitoria"
 
-    # Verificação de derrota
     if vidas <= 0:
         estado_jogo = "derrota"
 
@@ -115,7 +104,6 @@ def on_key_down(key):
             cometas.clear()
             estado_jogo = "jogando"
 
-# Criação contínua de clones de cometas
 def spawn_cometa():
     if estado_jogo == "jogando":
         velocidade = random.uniform(2, 5)
